@@ -6,17 +6,23 @@
     android:layout_height="wrap_content"
     android:padding="12dp">
 
-    <EditText
-        android:id="@+id/input_editText"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/input_editText_label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter task"
         android:layout_marginTop="12dp"
-        android:inputType="textMultiLine"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        android:hint="Enter task"
+        app:errorEnabled="true"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/input_editText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="textAutoComplete"
+            android:singleLine="true" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:id="@+id/priority_tv"
@@ -25,28 +31,8 @@
         android:layout_marginTop="16dp"
         android:text="Priority"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-        app:layout_constraintStart_toStartOf="@+id/input_editText"
-        app:layout_constraintTop_toBottomOf="@+id/input_editText" />
-
-    <Button
-        android:id="@+id/dialog_button_cancel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="Cancel"
-        app:layout_constraintEnd_toStartOf="@+id/dialog_button_add"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/priority_radioGroup" />
-
-    <Button
-        android:id="@+id/dialog_button_add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add"
-        app:layout_constraintBaseline_toBaselineOf="@+id/dialog_button_cancel"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/dialog_button_cancel" />
+        app:layout_constraintStart_toStartOf="@+id/input_editText_label"
+        app:layout_constraintTop_toBottomOf="@+id/input_editText_label" />
 
     <RadioGroup
         android:id="@+id/priority_radioGroup"
@@ -94,6 +80,26 @@
             android:textColor="@color/teal_700"
             android:textSize="16sp" />
     </RadioGroup>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/dialog_button_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="Cancel"
+        app:layout_constraintEnd_toStartOf="@+id/dialog_button_add"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/priority_radioGroup" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/dialog_button_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add"
+        app:layout_constraintBaseline_toBaselineOf="@+id/dialog_button_cancel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/dialog_button_cancel" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

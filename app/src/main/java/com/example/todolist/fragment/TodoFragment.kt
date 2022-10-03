@@ -19,13 +19,12 @@ import com.example.todolist.model.Todo
 import com.example.todolist.viewmodel.TodoViewModel
 import kotlinx.android.synthetic.main.dialog_box.view.*
 
-
 class TodoFragment : Fragment() {
     private lateinit var binding: FragmentTodoBinding
     private lateinit var bindingItem: ItemTodoBinding
     private lateinit var viewModel: TodoViewModel
     private lateinit var bindingDialog: DialogBoxBinding
-    var priorityLevel = ""
+    private var priorityLevel = ""
 
     private val todoAdapter: TodoAdapter = TodoAdapter(
         object : TodoAdapter.ItemClickListener {
@@ -75,16 +74,18 @@ class TodoFragment : Fragment() {
         dialogView.dialog_button_add.setOnClickListener {
             dialogAlert.dismiss()
             val inputTodo = dialogView.input_editText.text.toString()
-            when (dialogView.priority_radioGroup.checkedRadioButtonId) {
-                2131231211 -> priorityLevel = "Urgent"
-                2131230940 -> priorityLevel = "High"
-                2131230997 -> priorityLevel = "Medium"
-                2131230972 -> priorityLevel = "Low"
+            if (dialogView.urgent.isChecked) {
+                priorityLevel = "Urgent"
+            } else if (dialogView.high.isChecked) {
+                priorityLevel = "High"
+            } else if (dialogView.medium.isChecked) {
+                priorityLevel = "Medium"
+            } else {
+                priorityLevel = "Low"
             }
-            Log.d("RadioGroup", "$inputTodo -> Priority level: $priorityLevel")
-            if (inputCheck(inputTodo)) {
-                insertToDatabase(inputTodo, priorityLevel)
-            }
+//            Log.d("RadioGroup", "$inputTodo -> Priority level: $priorityLevel")
+            insertToDatabase(inputTodo, priorityLevel)
+
         }
         dialogView.dialog_button_cancel.setOnClickListener {
             dialogAlert.dismiss()
@@ -95,16 +96,10 @@ class TodoFragment : Fragment() {
     private fun insertToDatabase(inputItem: String, priorityLevel: String) {
         val todo = Todo(0, inputItem, priorityLevel)
         viewModel.addTodo(todo)
-//            Toast.makeText(context, "Successfully added $todo with id: ${todo.id}to database.", Toast.LENGTH_LONG).show()
     }
 
     private fun deleteFromDatabase(position: Int) {
         val todo = todoAdapter.getItemAt(position)
         viewModel.deleteTodo(todo)
     }
-
-    private fun inputCheck(todoItem: String): Boolean {
-        return !(TextUtils.isEmpty(todoItem))
-    }
-
 }
